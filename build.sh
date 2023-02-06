@@ -9,7 +9,7 @@ export VIRTIO_WIN_ISO_URL=${VIRTIO_WIN_ISO_URL:-https://fedorapeople.org/groups/
 export VIRTIO_WIN_ISO=${VIRTIO_WIN_ISO:-${PACKER_CACHE_DIR}/$(basename "${VIRTIO_WIN_ISO_URL}")}
 export VIRTIO_WIN_ISO_DIR=${VIRTIO_WIN_ISO_DIR:-${PACKER_CACHE_DIR}/virtio-win}
 # Packer binary
-export PACKER_BINARY=${PACKER_BINARY:-packer}
+export PACKER_BINARY=${PACKER_BINARY:-/usr/local/bin/packer}
 # Directory where all the images will be stored
 export PACKER_IMAGES_OUTPUT_DIR=${PACKER_IMAGES_OUTPUT_DIR:-/var/tmp/packer-templates-images}
 # Directory where to store the logs

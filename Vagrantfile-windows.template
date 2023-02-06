@@ -47,7 +47,7 @@ Vagrant.configure("2") do |config|
   #config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct:true
 
   ## Configure Private Network To Connect to (should be default for now)
-  ##config.vm.network :private_network,
+  ## config.vm.network :private_network,
   ## :libvirt__network_name: => "default"
 
   config.vm.boot_timeout      = 1000
