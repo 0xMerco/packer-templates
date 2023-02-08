@@ -11,7 +11,7 @@ export VIRTIO_WIN_ISO_DIR=${VIRTIO_WIN_ISO_DIR:-${PACKER_CACHE_DIR}/virtio-win}
 # Packer binary
 export PACKER_BINARY=${PACKER_BINARY:-/usr/local/bin/packer}
 # Directory where all the images will be stored
-export PACKER_IMAGES_OUTPUT_DIR=${PACKER_IMAGES_OUTPUT_DIR:-/var/tmp/packer-templates-images}
+export PACKER_IMAGES_OUTPUT_DIR=${PACKER_IMAGES_OUTPUT_DIR:-/mnt/vm_space2/tmp/packer-templates-images}
 # Directory where to store the logs
 export LOGDIR=${LOGDIR:-/var/tmp/packer-templates-logs}
 # Enable packer debug log if set to 1 (default 0)
