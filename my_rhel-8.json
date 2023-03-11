@@ -64,7 +64,7 @@
   ],
   "variables": {
     "accelerator": "kvm",
-    "centos_mirror": "http//:172.16.16.13:8000/",
+    "centos_mirror": "http://172.16.16.13:8000/",
     "centos_tag": "{{ env `CENTOS_TAG` }}",
     "centos_type": "{{ env `CENTOS_TYPE` }}",
     "centos_version": "{{ env `CENTOS_VERSION` }}",
