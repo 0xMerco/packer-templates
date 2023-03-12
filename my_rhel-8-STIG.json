@@ -1,0 +1,82 @@
+{
+  "_comment1": "NAME=my_centos-7-x86_64 CENTOS_VERSION=7 CENTOS_TYPE=NetInstall CENTOS_TAG=2009 PACKER_IMAGES_OUTPUT_DIR=/var/tmp/ LOGDIR=/tmp/ packer build -only=qemu my_centos-7.json",
+  "builders": [
+    {
+      "accelerator": "{{ user `accelerator` }}",
+      "boot_command": [
+        "<tab> text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/rhel{{ user `centos_version` }}/mySTIGKS.cfg<enter>"
+      ],
+      "boot_wait": "10s",
+      "cpus": "{{ user `cpus` }}",
+      "disk_size": "{{ user `disk_size` }}",
+      "headless": "{{ user `headless` }}",
+      "http_directory": "http",
+      "iso_checksum": "file:{{ user `centos_mirror` }}sha256sum.txt",
+      "iso_urls": [
+        "{{ user `centos_mirror` }}rhel-8.7-x86_64-dvd.iso"
+      ],
+      "memory": "{{ user `memory` }}",
+      "output_directory": "{{ user `name` }}-qemu",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_username": "{{ user `ssh_username` }}",
+      "ssh_timeout": "1h",
+      "type": "qemu",
+      "vm_name": "{{ user `name` }}"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "compression_level": 9,
+        "output": "{{ user `packer_images_output_dir` }}/{{ user `name` }}-{{ .Provider }}.box",
+        "type": "vagrant",
+        "vagrantfile_template": "Vagrantfile-linux.template"
+      }
+    ]
+  ],
+  "provisioners": [
+    {
+      "execute_command": "echo 'vagrant' | sudo -S -E bash '{{ .Path }}'",
+      "scripts": [
+        "scripts/linux-common/vagrant.sh"
+      ],
+      "type": "shell"
+    },
+    {
+      "execute_command": "sudo -E bash '{{ .Path }}'",
+      "scripts": [
+        "scripts/linux-common/packer-virt-sysprep/sysprep-op-dhcp-client-state.sh",
+        "scripts/linux-common/packer-virt-sysprep/sysprep-op-firewall-rules.sh",
+        "scripts/linux-common/packer-virt-sysprep/sysprep-op-logfiles.sh",
+        "scripts/linux-common/packer-virt-sysprep/sysprep-op-machine-id.sh",
+        "scripts/linux-common/packer-virt-sysprep/sysprep-op-mail-spool.sh",
+        "scripts/linux-common/packer-virt-sysprep/sysprep-op-network.sh",
+        "scripts/linux-common/packer-virt-sysprep/sysprep-op-package-manager-cache.sh",
+        "scripts/linux-common/packer-virt-sysprep/sysprep-op-rpm-db.sh",
+        "scripts/linux-common/packer-virt-sysprep/sysprep-op-ssh-hostkeys.sh",
+        "scripts/linux-common/packer-virt-sysprep/sysprep-op-tmp-files.sh",
+        "scripts/linux-common/packer-virt-sysprep/sysprep-op-yum-uuid.sh",
+        "scripts/linux-common/packer-virt-sysprep/sysprep-op-disk-space.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "accelerator": "kvm",
+    "centos_mirror": "http://172.16.16.13:8000/",
+    "centos_tag": "{{ env `CENTOS_TAG` }}",
+    "centos_type": "{{ env `CENTOS_TYPE` }}",
+    "centos_version": "{{ env `CENTOS_VERSION` }}",
+    "cpus": "4",
+    "disk_size": "51200",
+    "headless": "false",
+    "memory": "8192",
+    "name": "{{ env `NAME` }}",
+    "packer_images_output_dir": "{{ env `PACKER_IMAGES_OUTPUT_DIR` }}",
+    "packer_templates_logs": "{{ env `LOGDIR` }}",
+    "preseed_file_name": "my-ks.cfg",
+    "ssh_password": "vagrant",
+    "ssh_username": "vagrant"
+  }
+}

@@ -63,6 +63,7 @@ Build Ubuntu Desktop 20.04, 18.04; Ubuntu Server 20.04, 18.04, 16.04; My Ubuntu 
     my_ubuntu-{20.04,18.04,16.04}-server-amd64-{libvirt,virtualbox} \\
     my_centos-7-x86_64-{libvirt,virtualbox} \\
     my_rhel-8-x86_64-libvirt
+    my_rhel-8-x86_64-stig-libvirt
 EOF
 }
 
@@ -116,6 +117,19 @@ cmdline() {
       export CENTOS_TYPE="NetInstall"
       ISO_CHECKSUM=$(curl -s "ftp://ftp.cvut.cz/centos/${CENTOS_VERSION}/isos/x86_64/sha256sum.txt" | awk "/CentOS-${CENTOS_VERSION}-x86_64-${CENTOS_TYPE}-${CENTOS_TAG}.iso/ { print \$1 }")
       PACKER_CMD_PARAMS+=("${MY_NAME}-${CENTOS_VERSION}.json")
+      echo "* NAME: ${NAME}, CENTOS_VERSION: ${CENTOS_VERSION}, CENTOS_TAG: ${CENTOS_TAG}, CENTOS_TYPE: ${CENTOS_TYPE}"
+      ;;
+    *rhel*stig*)
+      # CENTOS_VERSION=$(echo "${NAME}" | awk -F '-' '{ print $2 }')
+      CENTOS_VERSION="8"
+      export CENTOS_VERSION
+      # CENTOS_TAG=$(curl -s "ftp://ftp.cvut.cz/centos/${CENTOS_VERSION}/isos/x86_64/sha256sum.txt" | sed -n 's/.*-\(..\)\(..\)\.iso/\1\2/p' | head -1)
+      CENTOS_TAG="NULL"
+      export CENTOS_TAG
+      export CENTOS_TYPE="NetInstall"
+      # ISO_CHECKSUM=$(curl -s "ftp://ftp.cvut.cz/centos/${CENTOS_VERSION}/isos/x86_64/sha256sum.txt" | awk "/CentOS-${CENTOS_VERSION}-x86_64-${CENTOS_TYPE}-${CENTOS_TAG}.iso/ { print \$1 }")
+      #PACKER_CMD_PARAMS+=("${MY_NAME}-${CENTOS_VERSION}.json")
+      PACKER_CMD_PARAMS+=("${MY_NAME}-${CENTOS_VERSION}-STIG.json")
       echo "* NAME: ${NAME}, CENTOS_VERSION: ${CENTOS_VERSION}, CENTOS_TAG: ${CENTOS_TAG}, CENTOS_TYPE: ${CENTOS_TYPE}"
       ;;
     *rhel*)
