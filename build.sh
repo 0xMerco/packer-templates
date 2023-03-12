@@ -124,7 +124,7 @@ cmdline() {
       CENTOS_VERSION="8"
       export CENTOS_VERSION
       # CENTOS_TAG=$(curl -s "ftp://ftp.cvut.cz/centos/${CENTOS_VERSION}/isos/x86_64/sha256sum.txt" | sed -n 's/.*-\(..\)\(..\)\.iso/\1\2/p' | head -1)
-      CENTOS_TAG="NULL"
+      CENTOS_TAG="STIG"
       export CENTOS_TAG
       export CENTOS_TYPE="NetInstall"
       # ISO_CHECKSUM=$(curl -s "ftp://ftp.cvut.cz/centos/${CENTOS_VERSION}/isos/x86_64/sha256sum.txt" | awk "/CentOS-${CENTOS_VERSION}-x86_64-${CENTOS_TYPE}-${CENTOS_TAG}.iso/ { print \$1 }")
@@ -137,7 +137,7 @@ cmdline() {
       CENTOS_VERSION="8"
       export CENTOS_VERSION
       # CENTOS_TAG=$(curl -s "ftp://ftp.cvut.cz/centos/${CENTOS_VERSION}/isos/x86_64/sha256sum.txt" | sed -n 's/.*-\(..\)\(..\)\.iso/\1\2/p' | head -1)
-      CENTOS_TAG="NULL"
+      CENTOS_TAG="BASIC"
       export CENTOS_TAG
       export CENTOS_TYPE="NetInstall"
       # ISO_CHECKSUM=$(curl -s "ftp://ftp.cvut.cz/centos/${CENTOS_VERSION}/isos/x86_64/sha256sum.txt" | awk "/CentOS-${CENTOS_VERSION}-x86_64-${CENTOS_TYPE}-${CENTOS_TAG}.iso/ { print \$1 }")
