@@ -48,7 +48,6 @@
       "scripts": [
         "scripts/linux-common/packer-virt-sysprep/sysprep-op-dhcp-client-state.sh",
         "scripts/linux-common/packer-virt-sysprep/sysprep-op-firewall-rules.sh",
-        "scripts/linux-common/packer-virt-sysprep/sysprep-op-logfiles.sh",
         "scripts/linux-common/packer-virt-sysprep/sysprep-op-machine-id.sh",
         "scripts/linux-common/packer-virt-sysprep/sysprep-op-mail-spool.sh",
         "scripts/linux-common/packer-virt-sysprep/sysprep-op-network.sh",
