@@ -2,8 +2,13 @@
 
 set -eu -o pipefail
 
+#Note: I made some adjustments here since packer was configured to cache everything on root (/)
+#My system doesn't have a large root, so I needed to change things around more specifically:
+#TMPDIR,PACKER_LOG,PACKER_CACHE_DIR --> Moved to dedicated mount
+#PACKER_IMAGES_OUTPUT_DIR --> Moved to dedicated mount
+
 # Packer cache directory (where to store the iso images)
-export PACKER_CACHE_DIR=${PACKER_CACHE_DIR:-/var/tmp/packer_cache}
+export PACKER_CACHE_DIR=${PACKER_CACHE_DIR:-/mnt/vm_space/packer_tmp/packer_cache}
 # VirtIO win iso URL (https://www.linux-kvm.org/page/WindowsGuestDrivers/Download_Drivers)
 export VIRTIO_WIN_ISO_URL=${VIRTIO_WIN_ISO_URL:-https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win.iso}
 export VIRTIO_WIN_ISO=${VIRTIO_WIN_ISO:-${PACKER_CACHE_DIR}/$(basename "${VIRTIO_WIN_ISO_URL}")}
@@ -13,11 +18,11 @@ export PACKER_BINARY=${PACKER_BINARY:-/usr/local/bin/packer}
 # Directory where all the images will be stored
 export PACKER_IMAGES_OUTPUT_DIR=${PACKER_IMAGES_OUTPUT_DIR:-/mnt/vm_space2/tmp/packer-templates-images}
 # Directory where to store the logs
-export LOGDIR=${LOGDIR:-/var/tmp/packer-templates-logs}
+export LOGDIR=${LOGDIR:-/mnt/vm_space/packer_tmp/packer-templates-logs}
 # Enable packer debug log if set to 1 (default 0)
 export PACKER_LOG=${PACKER_LOG:-0}
 # Use /var/tmp as temporary directory for Packer, because export of VM images can consume lot of disk space
-export TMPDIR=${TMPDIR:-/var/tmp}
+export TMPDIR=${TMPDIR:-/mnt/vm_space/packer_tmp}
 
 PROGNAME=$(basename "$0")
 readonly PROGNAME
