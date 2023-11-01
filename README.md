@@ -332,4 +332,4 @@ cd packer-templates || exit
 * `vagrant_init_destroy_boxes.sh` - tests all `*.box` images in the current
   directory using `vagrant add/up/ssh/winrm/destroy`
 
-GitLab CI configuration (obsolete) can be found here: [GitLab_CI_configuration.md](docs/GitLab_CI_configuration.md)
+GitLab CI configuration (obsolete) can be found here: [GitLab_CI_configuration.md](docs/GitLab_CI_configuration.md).
